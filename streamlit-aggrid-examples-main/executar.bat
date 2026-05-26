@@ -1,0 +1,1 @@
+streamlit run 0_Getting_started.py
