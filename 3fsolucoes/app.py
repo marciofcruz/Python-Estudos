@@ -1,7 +1,12 @@
 import streamlit as st
+from pathlib import Path
 from utils.data_loader import carregar_dados
 from utils.header import cabecalho
 from utils.metricas import cards_metricas
+
+# caminho absoluto baseado na localizacao do app.py
+# funciona igual local e no servidor (Streamlit Cloud, Render, etc.)
+BASE_DIR = Path(__file__).parent
 
 # ── Configuracao global ───────────────────────────────────────────────────────
 st.set_page_config(
@@ -11,11 +16,11 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-with open("assets/style.css", encoding="utf-8") as f:
+with open(BASE_DIR / "assets" / "style.css", encoding="utf-8") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 # ── Dados ─────────────────────────────────────────────────────────────────────
-df = carregar_dados("MemFlash.csv")
+df = carregar_dados(str(BASE_DIR / "MemFlash.csv"))
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 with st.sidebar:
